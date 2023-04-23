@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_application_template/subpages/settings_subpage.dart';
+import 'package:flutter_mobile_application_template/subpages/workout_subpage.dart';
 
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
@@ -42,7 +43,7 @@ final _destinations = <_destination>[
 
 final router = GoRouter(
   navigatorKey: _rootNavigationKey,
-  initialLocation:'/calendar',
+  initialLocation: '/calendar',
   routes: [
     ShellRoute(
       navigatorKey: _shellNavigationKey,
@@ -68,15 +69,26 @@ final router = GoRouter(
               body: child,
             ));
       },
+
       // Вложенные маршруты для каждой вкладки
       routes: [
         GoRoute(
           path: _destinations[0].path,
           pageBuilder: (context, state) => NoTransitionPage<void>(
             key: state.pageKey,
-            child: CalendarPage(),
+            child: const CalendarPage(),
           ),
-          routes: const [],
+          routes: [
+            GoRoute(
+              parentNavigatorKey: _rootNavigationKey,
+              path: 'workout_page',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                child: WorkoutSubpage(workoutId:  int.parse((state.extra as Map<String , String>)["workoutId"] ?? "-1")),
+              ),
+              routes: const [],
+            ),
+          ],
         ),
         GoRoute(
           path: _destinations[1].path,

@@ -6,6 +6,8 @@ import 'package:flutter_mobile_application_template/widgets/settings_subpage_wid
 import 'package:flutter_mobile_application_template/widgets/settings_subpage_widgets/theme_toogle.dart';
 import 'package:get/get.dart';
 
+import '../widgets/settings_subpage_widgets/language _toogle.dart';
+
 class SettingsSubpage extends GetView<MainController> {
   const SettingsSubpage({super.key});
 
@@ -19,6 +21,10 @@ class SettingsSubpage extends GetView<MainController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
+           Padding(
+              padding: EdgeInsets.all(appPadding),
+              child: LanguageToogle(),
+            ),
             Text(
               t.settings.theme_mode,
               style: Theme.of(context).textTheme.titleLarge,
@@ -38,6 +44,7 @@ class SettingsSubpage extends GetView<MainController> {
               padding: EdgeInsets.all(appPadding),
               child: SeedColorToogle(),
             ),
+              
           ],
         ),
       ),

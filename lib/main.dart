@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_mobile_application_template/controllers/calendar/calendar_controller.dart';
+import 'package:flutter_mobile_application_template/controllers/calendar/workout_controller.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
+import 'controllers/calendar/workoutlist_controller.dart';
 import 'controllers/main_controller.dart';
 import 'i18n/strings.g.dart';
 import 'routes.dart';
@@ -12,10 +13,10 @@ import 'routes.dart';
 Future<void> main() async {
   await GetStorage.init();
   Get.put(MainController());
-  CalendarController calendarController = CalendarController();
+  WorkoutListController calendarController = WorkoutListController();
   calendarController.selectedDay(DateTime.now());
   Get.put(calendarController);
-
+  Get.put(WorkoutController());
 
 
   WidgetsFlutterBinding.ensureInitialized();
