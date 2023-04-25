@@ -4,13 +4,13 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:get/get.dart';
 
 enum LanguageLabel {
-  russian('Русский', Icons.sentiment_satisfied_outlined),
-  english('English', Icons.cloud_outlined),
-  systme('Системный', Icons.brush_outlined);
+  russian('Русский' , "ru"),
+  english('English' , "en"),
+  systme('Системный' , "sys");
 
-  const LanguageLabel(this.label, this.icon);
+  const LanguageLabel(this.label , this.value);
   final String label;
-  final IconData icon;
+  final String value;
 }
 
 class LanguageToogle extends StatelessWidget {
@@ -21,20 +21,20 @@ class LanguageToogle extends StatelessWidget {
   final List<DropdownMenuEntry<LanguageLabel>> languageEntries = LanguageLabel
       .values
       .map((language) => DropdownMenuEntry<LanguageLabel>(
-          value: language, label: language.label))
+          value: language, label: language.label))    
       .toList();
 
   @override
   Widget build(BuildContext context) {
     return DropdownMenu<LanguageLabel>(
       width: context.width / 1.5,
-      enableSearch: true,
+      // enableSearch: false,
       initialSelection: LanguageLabel.russian,
-      controller: iconController,
+     controller: null,
       leadingIcon: const Icon(Icons.language),
       label: const Text('Язык'),
       dropdownMenuEntries: languageEntries,
-      onSelected: (icon) {},
+      onSelected: (language) {print(language?.value);},
     );
   }
 }
