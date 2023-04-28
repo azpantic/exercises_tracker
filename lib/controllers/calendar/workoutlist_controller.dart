@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 class WorkoutListAPI extends GetConnect {
   Future<List<WorkoutListItem>> getWorkoutListOnSetectedDay(
       DateTime selectedDay) async {
-    await Future.delayed(Duration(milliseconds: 500));
+    await Future.delayed(Duration(milliseconds: 1));
     return [
       WorkoutListItem(
           id: 1, name: "name1", date: selectedDay, exerciseCount: 2),

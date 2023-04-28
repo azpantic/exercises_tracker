@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobile_application_template/constans.dart';
 import 'package:flutter_mobile_application_template/i18n/strings.g.dart';
@@ -8,6 +9,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../controllers/calendar/workoutlist_controller.dart';
 import '../models/workout.dart';
+import '../widgets/calendar_widgets/workout_tile.dart';
 
 class CalendarPage extends GetView<WorkoutListController> {
   const CalendarPage({super.key});
@@ -65,21 +67,23 @@ class CalendarPage extends GetView<WorkoutListController> {
                   style: context.textTheme.titleLarge,
                 ),
                 Expanded(
-                  child: Obx(() => ListView(
-                        children: controller
-                            .avalibleWorkoutNames()
-                            .map(
-                              (workoutName) => ListTile(
-                                title: Text(workoutName),
-                                trailing: Icon(Icons.add),
-                                onTap: () {
-                                  controller.addNewWorkout(workoutName);
-                                  context.pop();
-                                },
-                              ),
-                            )
-                            .toList(),
-                      )),
+                  child: Obx(
+                    () => ListView(
+                      children: controller
+                          .avalibleWorkoutNames()
+                          .map(
+                            (workoutName) => ListTile(
+                              title: Text(workoutName),
+                              trailing: Icon(Icons.add),
+                              onTap: () {
+                                controller.addNewWorkout(workoutName);
+                                context.pop();
+                              },
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
                 )
               ],
             ),
@@ -110,18 +114,18 @@ class WorkoutList extends GetView<WorkoutListController> {
           }
 
           return Expanded(
-            child: Obx(() => ListView(
-                  children: controller
-                      .selectedDayWorkouts()
-                      .map((workout) => WorkoutTile(workoutData: workout))
-                      .toList(),
-                )),
+            child: Obx(
+              () => ListView(
+                children: controller
+                    .selectedDayWorkouts()
+                    .map((workout) => WorkoutTile(workoutData: workout))
+                    .toList(),
+              ),
+            ),
           );
         },
       );
 }
-
-// class
 
 class WorkoutTile extends GetView<WorkoutListController> {
   WorkoutTile({super.key, required this.workoutData});
