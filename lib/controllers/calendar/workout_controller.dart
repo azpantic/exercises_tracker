@@ -8,10 +8,9 @@ class WorkoutAPI extends GetConnect {
     await Future.delayed(Duration(milliseconds: 500));
 
     return WorkoutData(id: id, name: "name1", date: DateTime.now(), exercises: [
-      Exercise(id : 1 , name :"name1"  , repsCount:  1 , setsCount: 12),
-      Exercise(id : 1 , name :"name1"  , repsCount:  1 , setsCount: 12),
-      Exercise(id : 1 , name :"name1"  , repsCount:  1 , setsCount: 12),
-     
+      Exercise(id: 1, name: "name1", repeats: []),
+      Exercise(id: 1, name: "name1", repeats: []),
+      Exercise(id: 1, name: "name1", repeats: []),
     ]);
   }
 
@@ -49,21 +48,16 @@ class WorkoutController extends GetxController {
 
     List<String> allExerciseNames = await workoutAPI.getExerciseNames();
     List<String> filteredExerciseNamse = allExerciseNames
-        .where((name) =>
-            exercises()
-                .where((exercise) => exercise.name == name).isEmpty)
+        .where((name) => exercises().where((exercise) => exercise.name == name).isEmpty)
         .toList();
 
     avalibleExerciseNames(filteredExerciseNamse);
-      
+
     isLoading(false);
   }
 
   Future<void> addNewExercise(String newExerciseName) async {
-    
-    
-
-    exercises.add(Exercise(id: 1, name: newExerciseName, repsCount: 0, setsCount: 0));
+    exercises.add(Exercise(id: 1, name: newExerciseName, repeats: []));
     avalibleExerciseNames.remove(newExerciseName);
   }
 }

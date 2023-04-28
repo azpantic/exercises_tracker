@@ -21,10 +21,10 @@ class SettingsSubpage extends GetView<MainController> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-           Padding(
-              padding: EdgeInsets.all(appPadding),
-              child: LanguageToogle(),
-            ),
+            //  Padding(
+            //     padding: EdgeInsets.all(appPadding),
+            //     child: LanguageToogle(),
+            //   ),
             Text(
               t.settings.theme_mode,
               style: Theme.of(context).textTheme.titleLarge,
@@ -44,7 +44,6 @@ class SettingsSubpage extends GetView<MainController> {
               padding: EdgeInsets.all(appPadding),
               child: SeedColorToogle(),
             ),
-              
           ],
         ),
       ),

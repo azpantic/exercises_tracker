@@ -43,9 +43,7 @@ class CalendarPage extends GetView<WorkoutListController> {
       floatingActionButton: Obx(
         () => ElevatedButton(
           child: Text(t.calendar.add_workout),
-          onPressed: (controller.isLoading()
-              ? null
-              : () => showAvalibleWorkoutNames(context)),
+          onPressed: (controller.isLoading() ? null : () => showAvalibleWorkoutNames(context)),
         ),
       ),
     );
@@ -123,6 +121,8 @@ class WorkoutList extends GetView<WorkoutListController> {
       );
 }
 
+// class
+
 class WorkoutTile extends GetView<WorkoutListController> {
   WorkoutTile({super.key, required this.workoutData});
 
@@ -147,8 +147,7 @@ class WorkoutTile extends GetView<WorkoutListController> {
             onPressed: () {
               AlertDialog alert = AlertDialog(
                 title: Text("Удалить"),
-                content: Text(
-                    "Вы уверены что хотите удалить терировку ${workoutData.name} ?"),
+                content: Text("Вы уверены что хотите удалить терировку ${workoutData.name} ?"),
                 actions: [
                   ElevatedButton(
                     onPressed: () => context.pop(),

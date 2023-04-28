@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_mobile_application_template/controllers/calendar/workout_controller.dart';
@@ -39,9 +40,7 @@ class WorkoutSubpage extends GetView<WorkoutController> {
       floatingActionButton: Obx(
         () => ElevatedButton(
           child: Text("Добавить упражнение"),
-          onPressed: (controller.isLoading()
-              ? null
-              : () => showExerciseNames(context)),
+          onPressed: (controller.isLoading() ? null : () => showExerciseNames(context)),
         ),
       ),
     );
@@ -61,9 +60,8 @@ class WorkoutSubpage extends GetView<WorkoutController> {
             );
           }
 
-          String formatDate =
-              DateFormat.MMMEd(Localizations.localeOf(context).toString())
-                  .format(controller.workoutData.date);
+          String formatDate = DateFormat.MMMEd(Localizations.localeOf(context).toString())
+              .format(controller.workoutData.date);
 
           return SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -147,11 +145,89 @@ class ExerciseTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(appRoundRadius),
         ),
         title: Text(exerciseData.name),
-        subtitle: Text(
-            "${exerciseData.setsCount} подходов по ${exerciseData.repsCount} повторейний"),
+        subtitle: Text("${exerciseData.repeats.length} подходов"),
         trailing: Icon(Icons.edit_note),
-        onTap: () {},
+        onTap: () => showExerciseData(context),
       ),
     );
+  }
+
+  showExerciseData(BuildContext context) {
+    TextEditingController repsController = TextEditingController();
+
+    Dialog dialog = Dialog(
+      child: SizedBox(
+        width: context.width * 0.8,
+        height: context.height * 0.7,
+        child: Padding(
+          padding: const EdgeInsets.all(appPadding),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(appPadding),
+                child: Text("Подходы"),
+              ),
+
+              Divider(),
+
+              Expanded(
+                flex: 5,
+                child: SingleChildScrollView(
+                  controller: ScrollController(),
+                  child: Column(
+                    children: [], 
+                  ),
+                ),
+              ),
+
+              Divider(),
+
+              // Add reps btb and field
+              ConstrainedBox(
+                constraints: BoxConstraints(minHeight: context.height * 0.1),
+                child: Expanded(
+                  flex: 1,
+                  child: Column(
+                    children: [
+                      // Text filed for weight and reps
+                      Row(
+                        children: [
+                          Expanded(
+                            child: TextField(
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+$")),
+                              ],
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(helperText: "Повторы"),
+                            ),
+                          ),
+                          VerticalDivider(),
+                          Expanded(
+                            child: TextField(
+                              inputFormatters: <TextInputFormatter>[
+                                FilteringTextInputFormatter.allow(RegExp(r"^[0-9]+$")),
+                              ],
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(helperText: "Вес"),
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      Padding(
+                        padding: const EdgeInsets.all(appPadding),
+                        child: ElevatedButton(onPressed: () {}, child: Text("Добваить подход")),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+
+    showDialog(context: context, builder: (context) => dialog);
   }
 }

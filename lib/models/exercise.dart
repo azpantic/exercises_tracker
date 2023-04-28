@@ -1,12 +1,15 @@
+import 'repeat.dart';
+
 class Exercise {
-  Exercise(
-      {required this.id,
-      required this.name,
-      required this.repsCount,
-      required this.setsCount});
+  Exercise({
+    required this.id,
+    required this.name,
+    required this.repeats,
+  });
   int id;
   String name;
 
-  int repsCount;
-  int setsCount;
+  List<Repeat> repeats;
+
+  // int repsCount;
 }
